@@ -1,0 +1,36 @@
+<form method='post'>
+  <h1>create account</h1>
+  <label for='uname'>name</label>
+  <input type='text' name='uname' id='uname' required>
+  <label for='pwd'>password</label>
+  <input type='password' name='pwd' id='pwd' required>
+  <label for='pwd2'>password</label>
+  <input type='password' name='pwd2' id='pwd2' required>
+  <input type='submit' id='button' value='submit'>
+</form>
+
+<script>
+  const pwd1 = document.querySelector('#pwd');
+  const pwd2 = document.querySelector('#pwd2');
+
+  var pw1_check = null;
+  var pw2_check = null;
+
+  pwd1.addEventListener('change', (event) => {
+  pwd1_check = event.target.value;
+  });
+
+  pwd2.addEventListener('change', (event) => {
+  pw2_check = event.target.value;
+  });
+
+  if (pw1_check != pw2_check) {
+  document.getElementById("button").disabled = true;
+  }
+
+//  console.log(pwd_test);
+
+  function pwdMatches() {
+  pwd = getElementById('pwd');
+  }
+</script>

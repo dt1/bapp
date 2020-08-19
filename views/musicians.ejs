@@ -1,0 +1,65 @@
+
+
+<h1>Musicians</h1>
+
+<form action='/musicians' method='post'>
+  <p>add a musican; all fields required</p>
+  <div>
+    <label for='name'>name</label>
+    <input type='text' name='name' id='name' required >
+    <label for='age'>age</label>
+    <input type='number' name='age' id='age' min='10' max='120' required >
+    <label for='gender'>gender</label>
+    <select name='gender' id='gender' required >
+      <option value=''>chose one</option>
+      <option value='m'>m</option>
+      <option value='f'>f</option>
+    </select>
+    <label for='ph'>ph</label>
+    <input type='text' name='ph' id='ph' required >
+    <input type='submit' value='add' />
+  </div>
+</form>
+
+<p>musicians</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>age</th>
+      <th>gender</th>
+      <th>ph</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% musicians.forEach((m) => { %>
+    <form action='<%= `/musicians/delete/${m.musician_id}` %>' method='post'>
+      <tr>
+        <td><%= m.name %></td>
+        <td><%= m.age %></td>
+        <td><%= m.gender %></td>
+        <td><%= m.ph %></td>
+        <td><a href="<%= `/musicians/${m.musician_id}` %>">edit</a></td>
+        <td><input type='submit' value='delete' />
+      </tr>
+    </form>
+    <% }); %>
+  </tbody>
+</table>
+
+<style>
+  table {
+  border-collapse: collapse;
+  }
+
+  td, th {
+  border: 1px dotted gray;
+  padding: 0.5rem;
+  text-align: left;
+  }
+
+
+</style>

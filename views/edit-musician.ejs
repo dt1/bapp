@@ -1,0 +1,30 @@
+<%= JSON.stringify(info) %>
+
+<form action='<%=`/musicians/${info.musician_id}` %>' method='post'>
+  <p>add a musican; all fields required</p>
+  <div>
+    <label for='name'>name</label>
+    <input type='text' name='name' id='name' value='<%=`${info.name}`%>' required >
+
+    <label for='age'>age</label>
+    <input type='number' name='age' id='age' min='10' max='120'
+           value='<%=`${info.age}`%>' required >
+
+    <label for='gender'>gender</label>
+    <select name='gender' id='gender' required >
+      <% if (info.gender == 'm') { %>
+      <option value='m' selected>m</option>
+      <option value='f'>f</option>
+      <% } else { %>
+      <option value='m'>m</option>
+      <option value='f' selected>f</option>
+      <% } %>
+    </select>
+
+    <label for='ph'>ph</label>
+    <input type='text' name='ph' id='ph' value='<%=`${info.ph}`%>' required >
+    <input type='submit' value='update' />
+  </div>
+</form>
+
+<!-- other -->
