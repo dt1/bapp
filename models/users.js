@@ -1,19 +1,21 @@
 let crud = require('./crud');
 
-function insert_user (uname, pwd) {
+function insertUser (uname, pwd) {
     let q = `insert into usr(uname, pwd)
              values (?, ?);`;
 
     crud.insert(q, [uname, pwd]);
 }
 
-async function select_user (cb) {
+async function selectUser (cb) {
     let q = `select uid, uname, pwd from usr`;
+
+    console.log('select');
 
     cb(await crud.get_all(q));
 }
 
-async function get_user (j, cb) {
+async function getUser (j, cb) {
     let a = [ j.uname ];
     let q = `select uid, uname, pwd from usr
              where uname = ?`;
@@ -21,16 +23,24 @@ async function get_user (j, cb) {
     cb(await crud.get_one(q, a));
 }
 
-function delete_users () {
+function deleteUsers () {
     let q = `delete from usr`;
 
     crud.del_all(q);
 }
 
+async function checkUser(cb) {
+    let q = `select count(*) as cnt from usr`;
+
+    cb(await crud.get_all(q));
+}
+
+
 // delete_users();
 
 
-module.exports = { select_user,
-                   get_user,
-                   insert_user
+module.exports = { selectUser,
+                   getUser,
+                   insertUser,
+                   checkUser,
                  };

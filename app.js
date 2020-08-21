@@ -15,7 +15,6 @@ var app = express();
 
 // session management
 app.use(session({
-
     resave: false,
     saveUninitialized: false,
     genid: (req) => {

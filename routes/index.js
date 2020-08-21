@@ -4,21 +4,47 @@ var router = express.Router();
 var users = require('../models/users');
 var auth = require('./auth');
 
+// const newAcct = (req, res, next) => {
+//     users.checkUser((d) => {
+//         if (d[0]["cnt"] == 0) {
+//             console.log("???");
+//             res.redirect('/create-account');
+//         } else {
+//             console.log(222);
+//             res.render('index');
+//         }
+//     });
+// }
+
+function newAcct(cb) {
+    users.checkUser((d) => {
+        console.log("d " + d[0]["cnt"]);
+        if (d[0]["cnt"] == 0) {
+            cb(false);
+        } else {
+            cb(true);
+        }
+    });
+}
+
 router.get('/', auth.redirectMuse, function(req, res, next) {
-    console.log(req.session);
-    users.select_user((d) => {
-        auth.newAcct(d, res);
-        res.render('index', { users: d });
+    newAcct((tf) => {
+        console.log("tf = " + tf);
+        if (tf) {
+            console.log("res t");
+            res.render('index');
+        } else {
+            console.log("res f");
+            res.redirect('/create-account');
+        }
     });
 });
 
 router.post('/', function(req, res, next) {
-    users.get_user(req.body, (d) => {
+    users.getUser(req.body, (d) => {
         auth.login(d, req, res);
         console.log(req.body);
     });
-    // login(1, req, res);
-
 });
 
 router.get('/create-account', function(req, res) {
@@ -26,7 +52,7 @@ router.get('/create-account', function(req, res) {
 });
 
 router.post('/create-account', function(req, res) {
-    create_acct(req);
+    auth.createAcct(req)
     res.redirect('/');
 });
 
@@ -41,3 +67,6 @@ router.post('/logout', auth.redirectLogin, function(req, res) {
 });
 
 module.exports = router;
+
+
+// password

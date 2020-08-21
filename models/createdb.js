@@ -36,7 +36,7 @@ function drop_table (tbl) {
     });
 }
 
-// create_table(usr_table);
-// create_table(musicians_table);
+create_table(usr_table);
+create_table(musicians_table);
 
 // drop_table('musicians');

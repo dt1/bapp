@@ -1,11 +1,6 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
-function newAcct(d, res) {
-    if (!d || !d.length) {
-        res.redirect('/create-account');
-    }
-}
+const users = require('../models/users');
 
 function login(d, req, res) {
     let loginPW = req.body.pwd;
@@ -45,7 +40,19 @@ function createAcct(req) {
     let pwd = req.body.pwd;
     let uname = req.body.uname;
     bcrypt.hash(pwd, saltRounds, function(err, hash) {
-        users.insert_user(uname, hash);
+        users.insertUser(uname, hash);
+    });
+}
+
+const newAcct = (req, res, next) => {
+    users.checkUser((d) => {
+        if (d[0]["cnt"] == 0) {
+            console.log("???");
+            res.redirect('/create-account');
+        } else {
+            console.log(222);
+            res.render('index');
+        }
     });
 }
 
