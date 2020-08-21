@@ -1,60 +1,36 @@
-let db = require('./conn');
+let crud = require('./crud');
 
-let insert_usr = `
-insert into usr(uname, pwd)
-values (?, ?);`;
+function insert_user (uname, pwd) {
+    let q = `insert into usr(uname, pwd)
+             values (?, ?);`;
 
-function insert_user () {
-    db.run(insert_usr, ['fake-a', 'fake-pwd'], (err) => {
-        if (err) {
-            console.log('insert err = ' + err);
-        }
-        console.log(`new row w/ id: ${this.lastID}`);
-    });
+    crud.insert(q, [uname, pwd]);
 }
 
-
-        // res = []
-
-        // rows.forEach((row) => {
-        //     console.log(`uu = ${row.uid} - ${row.uname} - ${row.pwd}`);
-        //     res.push(row.uid, row.uname, row.pwd);
-        // });
-        // console.log("rr = " + res);
-        // return res;
-
-// async function q_select_user () {
-//     await db.all(select_usr, (err, rows).then((rows) => {
-//         return rows;
-//     }))
-// }
-
-        // res = []
-
-        // rows.forEach((row) => {
-        //     console.log(`uu = ${row.uid} - ${row.uname} - ${row.pwd}`);
-        //     res.push(row.uid, row.uname, row.pwd);
-        // });
-        // console.log("rr = " + res);
-        // return res;
-//     });
-// }
-
-function select_user (cb) {
+async function select_user (cb) {
     let q = `select uid, uname, pwd from usr`;
 
-    db.all(q, (err, rows) => {
-        if (err) {
-            console.log(err);
-            cb(err);
-            // return;
-        }
-
-        // console.log(rows);
-        cb(rows);
-    });
+    cb(await crud.get_all(q));
 }
 
+async function get_user (j, cb) {
+    let a = [ j.uname ];
+    let q = `select uid, uname, pwd from usr
+             where uname = ?`;
 
-module.exports = { select_user
+    cb(await crud.get_one(q, a));
+}
+
+function delete_users () {
+    let q = `delete from usr`;
+
+    crud.del_all(q);
+}
+
+// delete_users();
+
+
+module.exports = { select_user,
+                   get_user,
+                   insert_user
                  };

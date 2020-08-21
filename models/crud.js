@@ -25,9 +25,9 @@ function get_one(q, a) {
 function update(q, a) {
     db.run(q, a , (err) => {
         if (err) {
-            console.log("updated err = " + err);
+            console.log('updated err = ' + err);
         }
-        console.log("table updated");
+        console.log('table updated');
     });
 }
 
@@ -41,12 +41,20 @@ function insert(q, a) {
 }
 
 function del(q, a) {
-    console.log("cr");
     db.run(q, a, (err) => {
         if (err) {
             console.log('deleted row err = ' + err);
         }
         console.log('row deleted');
+    });
+}
+
+function del_all(q) {
+    db.run(q, (err) => {
+        if (err) {
+            console.log('deleted all err = ' + err);
+        }
+        console.log('table cleared');
     });
 }
 
@@ -85,5 +93,6 @@ module.exports = { select_user,
                    get_one,
                    update,
                    insert,
-                   del
+                   del,
+                   del_all
                  };

@@ -1,36 +1,38 @@
-<form method='post'>
+<form method='post' name='f' action='/create-account'>
   <h1>create account</h1>
+  <p>passwords must be at least 8 characters long</p>
   <label for='uname'>name</label>
   <input type='text' name='uname' id='uname' required>
+
   <label for='pwd'>password</label>
-  <input type='password' name='pwd' id='pwd' required>
+  <input type='password' name='pwd' id='pwd' onkeyup='checkMatch();'
+         minlength='8' required>
+
   <label for='pwd2'>password</label>
-  <input type='password' name='pwd2' id='pwd2' required>
+  <input type='password' name='pwd2' id='pwd2' onkeyup='checkMatch();'
+         minlength='8' required>
+
   <input type='submit' id='button' value='submit'>
 </form>
 
+<p id='pwmatch'></p>
+<p id='pwdlen'></p>
+
 <script>
-  const pwd1 = document.querySelector('#pwd');
-  const pwd2 = document.querySelector('#pwd2');
+  function checkMatch() {
 
-  var pw1_check = null;
-  var pw2_check = null;
+  if (document.getElementById('pwd').value == document.getElementById('pwd2').value) {
+  document.getElementById('pwmatch').style.color = 'green';
+  document.getElementById('pwmatch').innerHTML = 'passwords match';
+  document.getElementById('button').disabled = false;
 
-  pwd1.addEventListener('change', (event) => {
-  pwd1_check = event.target.value;
-  });
+  } else {
+  document.getElementById('pwmatch').style.color = 'red';
+  document.getElementById('pwmatch').innerHTML = 'passwords do not match';
+  document.getElementById('button').disabled = false;
+  document.getElementById('button').disabled = true;
 
-  pwd2.addEventListener('change', (event) => {
-  pw2_check = event.target.value;
-  });
-
-  if (pw1_check != pw2_check) {
-  document.getElementById("button").disabled = true;
+  }
   }
 
-//  console.log(pwd_test);
-
-  function pwdMatches() {
-  pwd = getElementById('pwd');
-  }
 </script>
