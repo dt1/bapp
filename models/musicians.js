@@ -1,7 +1,7 @@
 let crud = require('./crud');
 
 function add_musician(j) {
-    let a = [ j.name, j.age, j.gender, j.ph ];
+    let a = [ j.name, j.age, j.gender, j.ph, j.price ];
     let q = `insert into musicians (name, age, gender, ph, price)
              values (?, ?, ?, ?, ?);`;
 
