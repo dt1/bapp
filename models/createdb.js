@@ -13,8 +13,24 @@ musician_id integer primary key,
 name text,
 age int,
 gender text check(gender in ('m', 'f')),
-ph text
+ph text,
+price integer
 );`
+
+const instruments_table = `
+create table if not exists instruments (
+instrument_id integer primary key,
+name text,
+type text,
+price integer
+)`;
+
+const musician_instrument = `
+create table if not exists musician_instrument (
+musician_id integer references musicians (musician_id),
+instrument_id integer references instruments (instrument_id),
+primary key(musician_id, instrument_id)
+)`;
 
 function create_table (tbl) {
     db.run(tbl, (err) => {
@@ -38,5 +54,7 @@ function drop_table (tbl) {
 
 create_table(usr_table);
 create_table(musicians_table);
+create_table(instruments_table);
+create_table(musician_instrument);
 
 // drop_table('musicians');

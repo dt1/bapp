@@ -4,18 +4,6 @@ var router = express.Router();
 var users = require('../models/users');
 var auth = require('./auth');
 
-// const newAcct = (req, res, next) => {
-//     users.checkUser((d) => {
-//         if (d[0]["cnt"] == 0) {
-//             console.log("???");
-//             res.redirect('/create-account');
-//         } else {
-//             console.log(222);
-//             res.render('index');
-//         }
-//     });
-// }
-
 function newAcct(cb) {
     users.checkUser((d) => {
         console.log("d " + d[0]["cnt"]);

@@ -23,7 +23,13 @@
 
     <label for='ph'>ph</label>
     <input type='text' name='ph' id='ph' value='<%=`${info.ph}`%>' required >
+
+    <label for='price'>price</label>
+    <input type='number' name='price' id='price' min='10'
+           value='<%=`${info.price}`%>' required >
+
     <input type='submit' value='update' />
+
   </div>
 </form>
 

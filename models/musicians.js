@@ -2,20 +2,20 @@ let crud = require('./crud');
 
 function add_musician(j) {
     let a = [ j.name, j.age, j.gender, j.ph ];
-    let q = `insert into musicians (name, age, gender, ph)
-             values (?, ?, ?, ?);`;
+    let q = `insert into musicians (name, age, gender, ph, price)
+             values (?, ?, ?, ?, ?);`;
 
     crud.insert(q, a);
 }
 
 async function all_musicians (cb) {
-    let q = `select musician_id, name, age, gender, ph
+    let q = `select musician_id, name, age, gender, ph, price
              from musicians`;
     cb(await crud.get_all(q));
 }
 
 async function get_musician(id, cb) {
-    let q = `select musician_id, name, age, gender, ph
+    let q = `select musician_id, name, age, gender, ph, price
              from musicians
              where musician_id = ?`;
 
@@ -23,12 +23,13 @@ async function get_musician(id, cb) {
 }
 
 function update_musician(id, j) {
-    let a = [ j.name, j.age, j.gender, j.ph, id];
+    let a = [ j.name, j.age, j.gender, j.ph, j.price, id];
     let q = `update musicians
              set name = ?,
              age = ?,
              gender = ?,
-             ph = ?
+             ph = ?,
+             price = ?
              where musician_id = ?`;
 
     crud.update(q, a);

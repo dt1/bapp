@@ -1,25 +1,15 @@
 <%- include('menu') %>
 
-<h1>Musicians</h1>
+<h1>Instruments</h1>
 
-<form action='/musicians' method='post'>
+<form action='/instruments' method='post'>
   <p>add a musican; all fields required</p>
   <div>
     <label for='name'>name</label>
     <input type='text' name='name' id='name' required >
 
-    <label for='age'>age</label>
-    <input type='number' name='age' id='age' min='10' max='120' required >
-
-    <label for='gender'>gender</label>
-    <select name='gender' id='gender' required >
-      <option value=''>chose one</option>
-      <option value='m'>m</option>
-      <option value='f'>f</option>
-    </select>
-
-    <label for='ph'>ph</label>
-    <input type='text' name='ph' id='ph' required >
+    <label for='type'>type</label>
+    <input type='text' name='type' id='type' required >
 
     <label for='price'>price</label>
     <input type='number' name='price' id='price' min='10' required>
@@ -34,24 +24,20 @@
   <thead>
     <tr>
       <th>name</th>
-      <th>age</th>
-      <th>gender</th>
-      <th>ph</th>
+      <th>type</th>
       <th>price</th>
       <th></th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <% musicians.forEach((m) => { %>
-    <form action='<%= `/musicians/delete/${m.musician_id}` %>' method='post'>
+    <% instruments.forEach((m) => { %>
+    <form action='<%= `/instruments/delete/${m.instrument_id}` %>' method='post'>
       <tr>
         <td><%= m.name %></td>
-        <td><%= m.age %></td>
-        <td><%= m.gender %></td>
-        <td><%= m.ph %></td>
+        <td><%= m.type %></td>
         <td><%= m.price %></td>
-        <td><a href="<%= `/musicians/${m.musician_id}` %>">edit</a></td>
+        <td><a href="<%= `/instruments/${m.instrument_id}` %>">edit</a></td>
         <td><input type='submit' value='delete' />
       </tr>
     </form>

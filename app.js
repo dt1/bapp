@@ -10,6 +10,7 @@ const uuid = require('uuid');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var musicianRouter = require('./routes/musicians');
+var instrumentRouter = require('./routes/instruments');
 
 var app = express();
 
@@ -42,7 +43,7 @@ app.use(express.json());
 
 app.use('/', indexRouter);
 app.use('/musicians', musicianRouter);
-// app.use('/add-instrument', addInstrument);
+app.use('/instruments', instrumentRouter);
 // app.use('/add-repertoire', addRepertoire);
 app.use('/users', usersRouter);
 
