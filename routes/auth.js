@@ -30,7 +30,7 @@ function redirectLogin (req, res, next) {
 
 function redirectMuse (req, res, next) {
     if (req.session.userid) {
-        res.redirect('/muscicians');
+        res.redirect('/musicians');
     } else {
         next();
     }
