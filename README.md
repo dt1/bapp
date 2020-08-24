@@ -2,6 +2,12 @@
 
 bapp means "basic app." This app functions, but it doesn't have a major point beyond me learning node.
 
+While each push to this repo should work, there may be some debugging stuff on the pages.
+
+## running
+
+There is no setup needed. The database is sqlite; this and all other items will be pulled from npm.
+
 to run, clone the repo and:
 
 `npm install`
