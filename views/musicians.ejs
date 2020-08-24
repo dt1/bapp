@@ -1,6 +1,8 @@
 <%- include('menu') %>
 
-<h1>Musicians</h1>
+<%= JSON.stringify(slug) %>
+
+<h1>musicians</h1>
 
 <form action='/musicians' method='post'>
   <p>add a musican; all fields required</p>
@@ -37,19 +39,21 @@
       <th>age</th>
       <th>gender</th>
       <th>ph</th>
+      <th>instruments</th>
       <th>price</th>
       <th></th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <% musicians.forEach((m) => { %>
-    <form action='<%= `/musicians/delete/${m.musician_id}` %>' method='post'>
+    <% slug.forEach((m) => { %>
+    <form action='<%= `/slug/delete/${m.musician_id}` %>' method='post'>
       <tr>
         <td><%= m.name %></td>
         <td><%= m.age %></td>
         <td><%= m.gender %></td>
         <td><%= m.ph %></td>
+        <td><%= m.instruments %></td>
         <td><%= m.price %></td>
         <td><a href="<%= `/musicians/${m.musician_id}` %>">edit</a></td>
         <td><input type='submit' value='delete' />

@@ -7,8 +7,8 @@ var auth = require('./auth');
 const util = require('util')
 
 router.get('/', auth.redirectLogin, function(req, res, next) {
-    crud.all_musicians((d) => {
-        res.render('musicians', { musicians: d });
+    crud.musician_instruments((d) => {
+        res.render('musicians', { slug: d });
     });
 });
 

@@ -8,9 +8,22 @@ function add_musician(j) {
     crud.insert(q, a);
 }
 
-async function all_musicians (cb) {
+async function all_musicians(cb) {
     let q = `select musician_id, name, age, gender, ph, price
              from musicians`;
+    cb(await crud.get_all(q));
+}
+
+async function musician_instruments(cb) {
+    let q = `select m.musician_id, m.name, m.age, m.gender, m.ph, m.price,
+                    group_concat(i.name, ',') as instruments
+             from musicians as m
+             left join musician_instrument as mi
+             using (musician_id)
+             left join instruments as i
+             using (instrument_id)
+             group by m.musician_id, m.name, m.age, m.gender, m.ph, m.price`;
+
     cb(await crud.get_all(q));
 }
 
@@ -46,5 +59,6 @@ module.exports = { add_musician,
                    all_musicians,
                    get_musician,
                    update_musician,
-                   delete_musician
+                   delete_musician,
+                   musician_instruments
                  };

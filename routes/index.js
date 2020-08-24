@@ -6,7 +6,6 @@ var auth = require('./auth');
 
 function newAcct(cb) {
     users.checkUser((d) => {
-        console.log("d " + d[0]["cnt"]);
         if (d[0]["cnt"] == 0) {
             cb(false);
         } else {
@@ -17,12 +16,9 @@ function newAcct(cb) {
 
 router.get('/', auth.redirectMuse, function(req, res, next) {
     newAcct((tf) => {
-        console.log("tf = " + tf);
         if (tf) {
-            console.log("res t");
             res.render('index');
         } else {
-            console.log("res f");
             res.redirect('/create-account');
         }
     });
@@ -31,7 +27,6 @@ router.get('/', auth.redirectMuse, function(req, res, next) {
 router.post('/', function(req, res, next) {
     users.getUser(req.body, (d) => {
         auth.login(d, req, res);
-        console.log(req.body);
     });
 });
 

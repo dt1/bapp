@@ -23,6 +23,8 @@ function get_one(q, a) {
 }
 
 function update(q, a) {
+    console.log("q == " + q);
+    console.log("a == " + a);
     db.run(q, a , (err) => {
         if (err) {
             console.log('updated err = ' + err);
@@ -39,6 +41,7 @@ function insert(q, a) {
         console.log('row inserted');
     });
 }
+
 
 function del(q, a) {
     db.run(q, a, (err) => {
@@ -59,37 +62,7 @@ function del_all(q) {
 }
 
 
-
-let insert_usr = `
-insert into usr(uname, pwd)
-values (?, ?);`;
-
-function insert_user () {
-    db.run(insert_usr, ['fake-a', 'fake-pwd'], (err) => {
-        if (err) {
-            console.log('insert err = ' + err);
-        }
-        console.log(`new row w/ id: ${this.lastID}`);
-    });
-}
-
-function select_user (cb) {
-    let q = `select uid, uname, pwd from usr`;
-
-    db.all(q, (err, rows) => {
-        if (err) {
-            console.log(err);
-            cb(err);
-            // return;
-        }
-
-        // console.log(rows);
-        cb(rows);
-    });
-}
-
-module.exports = { select_user,
-                   get_all,
+module.exports = { get_all,
                    get_one,
                    update,
                    insert,

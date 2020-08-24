@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var musicianRouter = require('./routes/musicians');
 var instrumentRouter = require('./routes/instruments');
+var combineMiRouter = require('./routes/combine-mi');
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.use(express.json());
 app.use('/', indexRouter);
 app.use('/musicians', musicianRouter);
 app.use('/instruments', instrumentRouter);
+app.use('/combine-mi', combineMiRouter);
 // app.use('/add-repertoire', addRepertoire);
 app.use('/users', usersRouter);
 

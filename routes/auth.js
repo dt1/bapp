@@ -11,7 +11,6 @@ function login(d, req, res) {
     bcrypt.compare(loginPW, dbPW, function(err, result) {
         if (result) {
             req.session.userid = userId;
-            console.log("login = " + JSON.stringify(req.session));
             return res.redirect('/musicians');
         } else {
             res.redirect('/');
@@ -20,7 +19,6 @@ function login(d, req, res) {
 }
 
 function redirectLogin (req, res, next) {
-    console.log("req " + JSON.stringify(req.session));
     if (!req.session.userid) {
         res.redirect('/');
     } else {
@@ -47,10 +45,8 @@ function createAcct(req) {
 const newAcct = (req, res, next) => {
     users.checkUser((d) => {
         if (d[0]["cnt"] == 0) {
-            console.log("???");
             res.redirect('/create-account');
         } else {
-            console.log(222);
             res.render('index');
         }
     });
