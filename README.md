@@ -28,8 +28,8 @@ if you do not have nodemon, you can run:
 
 create a username and password, then press login to go to the home page.
 
-after you log in, you will find a page called musicians. This page allows you to add, edit, and remove musicians.
+after you log in, you will find a page called musicians. There are other pages, which I hope are self-explantory.
 
 ## I forgot my password
 
-There is no way to run a recovery at this moment. You can either make a new user or blow out the datbase, under `models/db.db` and start over.
+There is no way to run a recovery at this moment. You can either make a new user by visiting `/create-account`  or blow out the datbase, under `models/db.db` and start over.
