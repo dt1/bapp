@@ -1,5 +1,9 @@
 <%- include('menu') %>
 
+<%= JSON.stringify(slug) %>
+<% let instruments = slug.instruments; %>
+<% let stats = slug.stats; %>
+
 <h1>instruments</h1>
 
 <form action='/instruments' method='post'>
@@ -20,39 +24,47 @@
 
 <p>musicians</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>name</th>
-      <th>type</th>
-      <th>price</th>
-      <th>running total</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% let ttl = 0; %>
-    <% instruments.forEach((m) => { %>
-    <form action='<%= `/instruments/delete/${m.instrument_id}` %>' method='post'>
+<div class='lft'>
+  <table>
+    <thead>
       <tr>
-        <td><%= m.name %></td>
-        <td><%= m.type %></td>
-        <td>$<%= m.price %></td>
-        <td>$<%= ttl+=m.price %></td>
-        <td><a href="<%= `/instruments/${m.instrument_id}` %>">edit</a></td>
-        <td><input type='submit' value='delete' />
+        <th>row #</th>
+        <th>name</th>
+        <th>type</th>
+        <th>price</th>
+        <th>running total</th>
+        <th></th>
+        <th></th>
       </tr>
-    </form>
-    <% }); %>
-    <tr>
-      <td></td>
-      <td></td>
-      <td><b>total:</b></td>
-      <td>$<%= ttl %></td>
-    </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% let ttl = 0; %>
+      <% let rown = 1; %>
+      <% instruments.forEach((m) => { %>
+      <form action='<%= `/instruments/delete/${m.instrument_id}` %>' method='post'>
+        <tr>
+          <td><%= rown++ %></td>
+          <td><%= m.name %></td>
+          <td><%= m.type %></td>
+          <td>$<%= m.price %></td>
+          <td>$<%= ttl+=m.price %></td>
+          <td><a href="<%= `/instruments/${m.instrument_id}` %>">edit</a></td>
+          <td><input type='submit' value='delete' />
+        </tr>
+      </form>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+
+<div>
+  <p><b>total</b>: <%= stats.ttl %>
+  <p><b>avg</b>: <%= stats.avg %>
+  <p><b>Most Expensive</b>: <%= stats.max %>
+  <p><b>Least Expensive</b>: <%= stats.min %>
+</div>
+
 
 <style>
   table {
@@ -63,6 +75,11 @@
   border: 1px dotted gray;
   padding: 0.5rem;
   text-align: left;
+  }
+
+  div.lft {
+  float: left;
+  margin-right: 10em;
   }
 
 

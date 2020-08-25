@@ -22,7 +22,7 @@ router.get('/', auth.redirectLogin, function(req, res, next) {
         },
 
         function(cb) {
-            iCrud.all_instruments((i) => {
+            iCrud.available_instruments((i) => {
                 slug.instruments = i;
                 cb();
             })
@@ -39,28 +39,7 @@ router.get('/', auth.redirectLogin, function(req, res, next) {
 
 router.post('/', auth.redirectLogin, function(req, res, next) {
     miCrud.add_mi(req.body);
-    res.redirect('/combine-mi');
+    res.redirect('/musicians');
 });
-
-// router.get('/:id', auth.redirectLogin, function(req, res) {
-//     let id = req.params.id;
-//     crud.get_instrument(id, (d) => {
-//         res.render('edit-instrument', { info: d });
-//     });
-// });
-
-// router.post('/:id', auth.redirectLogin, function(req, res) {
-//     let id = req.params.id;
-//     crud.update_instrument(id, req.body);
-//     res.redirect('/instruments');
-// });
-
-// router.post('/delete/:id', auth.redirectLogin, function(req, res) {
-//     let id = req.params.id;
-//     crud.delete_instrument(id);
-//     res.redirect('/instruments');
-// });
-
-
 
 module.exports = router;

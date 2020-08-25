@@ -1,14 +1,17 @@
 <%- include('menu') %>
 
 <%= JSON.stringify(slug) %>
+<% let musicians = slug.musicians; %>
+<% let instruments = slug.instruments; %>
 
 <h1>combine musicians & instruments</h1>
+
+<% if(instruments && musicians) { %>
 
 <form action='/combine-mi' method='post'>
 
   <div class='lft'>
     <p>musicians</p>
-    <% let musicians = slug.musicians; %>
     <% musicians.forEach((m) => { %>
     <div>
       <input type='radio' id='musician' name='musician' value='<%=`${m.musician_id}`%>'>
@@ -19,7 +22,6 @@
 
   <div>
     <p>instruments</p>
-    <% let instruments = slug.instruments; %>
     <% instruments.forEach((i) => { %>
     <div>
       <input type='checkbox' id='coding' name='instrument' value='<%=`${i.instrument_id}`%>'>
@@ -34,6 +36,9 @@
 
   <input type='submit' value='submit'>
 </form>
+<% } else { %>
+<p>there is not enough data to combine musicans and instruments. Please add instruments and / or musicians</p>
+<% } %>
 
 <style>
   div.lft {

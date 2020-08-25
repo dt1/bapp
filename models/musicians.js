@@ -16,7 +16,7 @@ async function all_musicians(cb) {
 
 async function musician_instruments(cb) {
     let q = `select m.musician_id, m.name, m.age, m.gender, m.ph, m.price,
-                    group_concat(i.name, ',') as instruments
+                    group_concat(i.name, ', ') as instruments
              from musicians as m
              left join musician_instrument as mi
              using (musician_id)

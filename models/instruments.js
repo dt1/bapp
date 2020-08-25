@@ -9,9 +9,17 @@ function add_instrument(j) {
 }
 
 async function all_instruments (cb) {
-    console.log("iiii");
     let q = `select instrument_id, name, type, price
              from instruments`;
+    cb(await crud.get_all(q));
+}
+
+async function available_instruments (cb) {
+    let q = `select instrument_id, name, type, price
+             from instruments ii
+             where not exists (select 1
+                              from musician_instrument mi
+                              where ii.instrument_id = mi.instrument_id)`;
     cb(await crud.get_all(q));
 }
 
@@ -47,5 +55,6 @@ module.exports = { add_instrument,
                    all_instruments,
                    get_instrument,
                    update_instrument,
-                   delete_instrument
+                   delete_instrument,
+                   available_instruments
                  };

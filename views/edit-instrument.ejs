@@ -1,3 +1,5 @@
+<%- include('menu') %>
+
 <%= JSON.stringify(info) %>
 
 <form action='<%=`/instruments/${info.instrument_id}` %>' method='post'>
