@@ -4,6 +4,8 @@ var router = express.Router();
 var crud = require('../models/musicians');
 var auth = require('./auth');
 
+var async = require('async');
+
 const util = require('util')
 
 router.get('/', auth.redirectLogin, function(req, res, next) {
@@ -19,9 +21,27 @@ router.post('/', auth.redirectLogin, function(req, res, next) {
 
 router.get('/:id', auth.redirectLogin, function(req, res) {
     let id = req.params.id;
-    crud.get_musician(id, (d) => {
-        res.render('edit-musician', { info: d });
-    });
+    slug = {}
+    async.parallel([
+        function(cb) {
+            crud.get_musician(id, (m) => {
+                slug.musician = m;
+                cb();
+            })
+        },
+
+        function(cb) {
+            crud.specific_mi(id, (i) => {
+                slug.instrument = i;
+                cb();
+            });
+        }
+    ], function(err, results) {
+        if(err) {
+            return next(err);
+        }
+        res.render('edit-musician', {slug: slug})
+    })
 });
 
 router.post('/:id', auth.redirectLogin, function(req, res) {
@@ -33,6 +53,12 @@ router.post('/:id', auth.redirectLogin, function(req, res) {
 router.post('/delete/:id', auth.redirectLogin, function(req, res) {
     let id = req.params.id;
     crud.delete_musician(id);
+    res.redirect('/musicians');
+});
+
+router.post('/delete-instrument/:mid-:iid', auth.redirectLogin, function(req, res) {
+    let p = req.params;
+    crud.del_mi(req.params);
     res.redirect('/musicians');
 });
 

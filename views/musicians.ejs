@@ -47,7 +47,7 @@
   </thead>
   <tbody>
     <% slug.forEach((m) => { %>
-    <form action='<%= `/slug/delete/${m.musician_id}` %>' method='post'>
+    <form action='<%= `/musicians/delete/${m.musician_id}` %>' method='post'>
       <tr>
         <td><%= m.name %></td>
         <td><%= m.age %></td>

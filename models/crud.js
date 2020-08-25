@@ -22,6 +22,17 @@ function get_one(q, a) {
     });
 }
 
+function get_some(q, a) {
+    return new Promise((resolve, reject) => {
+        db.all(q, a, (err, rows) => {
+            if (err) {
+                console.log(err);
+            }
+            resolve(rows);
+        });
+    });
+}
+
 function update(q, a) {
     console.log("q == " + q);
     console.log("a == " + a);
@@ -63,6 +74,7 @@ function del_all(q) {
 
 
 module.exports = { get_all,
+                   get_some,
                    get_one,
                    update,
                    insert,

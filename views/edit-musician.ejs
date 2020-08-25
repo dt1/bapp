@@ -1,18 +1,21 @@
-<%= JSON.stringify(info) %>
+<%= JSON.stringify(slug) %>
 
-<form action='<%=`/musicians/${info.musician_id}` %>' method='post'>
-  <p>add a musican; all fields required</p>
+<% let muse = slug.musician %>
+<% let insts = slug.instrument %>
+
+<form action='<%=`/musicians/${muse.musician_id}` %>' method='post'>
+  <p>edit a musican; all fields required</p>
   <div>
     <label for='name'>name</label>
-    <input type='text' name='name' id='name' value='<%=`${info.name}`%>' required >
+    <input type='text' name='name' id='name' value='<%=`${muse.name}`%>' required >
 
     <label for='age'>age</label>
     <input type='number' name='age' id='age' min='10' max='120'
-           value='<%=`${info.age}`%>' required >
+           value='<%=`${muse.age}`%>' required >
 
     <label for='gender'>gender</label>
     <select name='gender' id='gender' required >
-      <% if (info.gender == 'm') { %>
+      <% if (muse.gender == 'm') { %>
       <option value='m' selected>m</option>
       <option value='f'>f</option>
       <% } else { %>
@@ -22,15 +25,63 @@
     </select>
 
     <label for='ph'>ph</label>
-    <input type='text' name='ph' id='ph' value='<%=`${info.ph}`%>' required >
+    <input type='text' name='ph' id='ph' value='<%=`${muse.ph}`%>' required >
 
     <label for='price'>price</label>
     <input type='number' name='price' id='price' min='10'
-           value='<%=`${info.price}`%>' required >
+           value='<%=`${muse.price}`%>' required >
 
     <input type='submit' value='update' />
 
   </div>
 </form>
 
-<!-- other -->
+remove an instrument:
+
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>type</th>
+      <th>price</th>
+      <th>running total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% let ttl = 0; %>
+    <% insts.forEach((i) => { %>
+    <form action='<%= `/musicians/delete-instrument/${muse.musician_id}-${i.instrument_id}` %>' method='post'>
+      <tr>
+        <td><%= i.name %></td>
+        <td><%= i.type %></td>
+        <td>$<%= i.price %></td>
+        <td>$<%= ttl += i.price %></td>
+        <td><input type='submit' value='delete' />
+      </tr>
+    </form>
+    <% }); %>
+    <tr>
+      <td></td>
+      <td></td>
+      <td><b>total</b></td>
+      <td>$<%= ttl %></td>
+    </tr>
+
+  </tbody>
+
+</table>
+
+
+<style>
+  table {
+  border-collapse: collapse;
+  }
+
+  td, th {
+  border: 1px dotted gray;
+  padding: 0.5rem;
+  text-align: left;
+  }
+
+
+</style>
