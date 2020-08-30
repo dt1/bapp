@@ -1,0 +1,86 @@
+<%- include('menu') %>
+
+<%= JSON.stringify(slug) %>
+<% let musicians = slug.musicians; %>
+<% let instruments = slug.instruments; %>
+
+<div class='lft'>
+  <form action='/mi-types/add-muse' method='post'>
+    <p>add a musician type:</p>
+    <div>
+      <input type='text' name='mtype' id='itype' required >
+
+      <input type='submit' value='add' />
+    </div>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>musician types</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% musicians.forEach((m)=> { %>
+      <form action='<%= `/mi-types/delete-muse-${m.musician_type}` %>' method='post'>
+        <tr>
+          <td><%= m.musician_type %></td>
+          <td><input type='submit' value='delete' /></td>
+        </tr>
+      </form>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+
+<div>
+  <form action='/mi-types/add-instrument' method='post'>
+    <p>add an instrument type:</p>
+    <div>
+      <input type='text' name='itype' id='itype' required >
+
+      <input type='submit' value='add' />
+    </div>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>instrument types</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% instruments.forEach((m)=> { %>
+      <form action='<%= `/mi-types/delete-instrument-${m.instrument_type}` %>' method='post'>
+        <tr>
+          <td><%= m.instrument_type %></td>
+          <td><input type='submit' value='delete' /></td>
+        </tr>
+      </form>
+      <% }); %>
+    </tbody>
+  </table>
+
+</div>
+
+<style>
+  table {
+  border-collapse: collapse;
+  }
+
+  td, th {
+  border: 1px dotted gray;
+  padding: 0.5rem;
+  text-align: left;
+  }
+
+  div.lft {
+  float: left;
+  margin-right: 10em;
+  }
+
+
+</style>

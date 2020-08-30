@@ -3,6 +3,7 @@
 <%= JSON.stringify(slug) %>
 <% let instruments = slug.instruments; %>
 <% let stats = slug.stats; %>
+<% let itypes = slug.itypes; %>
 
 <h1>instruments</h1>
 
@@ -13,7 +14,11 @@
     <input type='text' name='name' id='name' required >
 
     <label for='type'>type</label>
-    <input type='text' name='type' id='type' required >
+    <select name='type' id='type' required>
+      <% itypes.forEach((i) => { %>
+      <option value='<%= `${i.instrument_type}` %>'><%= i.instrument_type %></option>
+      <% }); %>
+    </select>
 
     <label for='price'>price</label>
     <input type='number' name='price' id='price' min='10' required>

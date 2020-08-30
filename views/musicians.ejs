@@ -1,6 +1,8 @@
 <%- include('menu') %>
 
 <%= JSON.stringify(slug) %>
+<% let musicians = slug.musician %>
+<% let mtypes = slug.mtypes %>
 
 <h1>musicians</h1>
 
@@ -9,6 +11,13 @@
   <div>
     <label for='name'>name</label>
     <input type='text' name='name' id='name' required >
+
+    <label for='mtype'>type</label>
+    <select name='mtype' id='mtype' >
+      <% mtypes.forEach((t) => { %>
+      <option value='<%= `${t.musician_type}` %>'><%= `${t.musician_type}` %></option>
+      <% }); %>
+    </select>
 
     <label for='age'>age</label>
     <input type='number' name='age' id='age' min='10' max='120' required >
@@ -36,6 +45,7 @@
   <thead>
     <tr>
       <th>name</th>
+      <th>type</th>
       <th>age</th>
       <th>gender</th>
       <th>ph</th>
@@ -46,17 +56,18 @@
     </tr>
   </thead>
   <tbody>
-    <% slug.forEach((m) => { %>
+    <% musicians.forEach((m) => { %>
     <form action='<%= `/musicians/delete/${m.musician_id}` %>' method='post'>
       <tr>
         <td><%= m.name %></td>
+        <td><%= m.musician_type %></td>
         <td><%= m.age %></td>
         <td><%= m.gender %></td>
         <td><%= m.ph %></td>
         <td><%= m.instruments %></td>
         <td><%= m.price %></td>
         <td><a href="<%= `/musicians/${m.musician_id}` %>">edit</a></td>
-        <td><input type='submit' value='delete' />
+        <td><input type='submit' value='delete' /></td>
       </tr>
     </form>
     <% }); %>

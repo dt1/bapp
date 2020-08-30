@@ -4,12 +4,24 @@
 
 <% let muse = slug.musician %>
 <% let insts = slug.instrument %>
+<% let mtypes = slug.mtypes %>
 
 <form action='<%=`/musicians/${muse.musician_id}` %>' method='post'>
   <p>edit a musican; all fields required</p>
   <div>
     <label for='name'>name</label>
     <input type='text' name='name' id='name' value='<%=`${muse.name}`%>' required >
+
+    <label for='mtype'>type</label>
+    <select name='mtype' id='mtype' >
+      <% mtypes.forEach((t) => { %>
+      <% if(t.musician_type == muse.musician_type) {%>
+      <option value='<%= `${t.musician_type}` %>' selected><%= `${t.musician_type}` %></option>
+      <% } else { %>
+      <option value='<%= `${t.musician_type}` %>'><%= `${t.musician_type}` %></option>
+      <% } %>
+      <% }); %>
+    </select>
 
     <label for='age'>age</label>
     <input type='number' name='age' id='age' min='10' max='120'
