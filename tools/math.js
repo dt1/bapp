@@ -6,7 +6,10 @@ function sum(a) {
 }
 
 function nums (a, k) {
-    return a.map((i) => i[k])
+    if (a && a.length) {
+        return a.map((i) => i[k])
+    }
+    return [0];
 }
 
 function avg(a, k) {
