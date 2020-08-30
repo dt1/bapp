@@ -27,8 +27,8 @@ price integer
 
 const musician_instrument = `
 create table if not exists musician_instrument (
-musician_id integer references musicians (musician_id),
-instrument_id integer references instruments (instrument_id),
+musician_id integer references musicians (musician_id) on delete cascade,
+instrument_id integer references instruments (instrument_id) on delete cascade,
 primary key(musician_id, instrument_id)
 )`;
 

@@ -11,5 +11,7 @@ const db = new sqlite3.Database(db_path , (err) => {
     console.log('connected to db');
 });
 
+db.get("PRAGMA foreign_keys = ON")
+
 
 module.exports = db;
